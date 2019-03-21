@@ -46,7 +46,7 @@ console.log(movieUrl);
 axios.get(movieUrl).then(
   function(response) {
     console.log(response.data);
-    console.log(response.data.imdbRating);
+    console.log(response.data.Ratings[1].Value);
     console.log(response.data.Title);
     console.log(response.data.Language);
     console.log(response.data.Country);
@@ -55,6 +55,9 @@ axios.get(movieUrl).then(
   }
 );
 }
+
+function spotify()
+
 
 
 
