@@ -13,7 +13,7 @@ case "concert-this":
   break;
 
 case "spotify-this-song":
-  spotify();
+  music();
   break;
 
 case "movie-this":
@@ -55,9 +55,28 @@ axios.get(movieUrl).then(
   }
 );
 }
-
-function spotify()
-
+function music() {
+    var Spotify = require('node-spotify-api');
+    var spotify = new Spotify(keys.spotify);
+    var music= "";
+    for (let i = 3; i < process.argv.length; i++) {
+        if (i > 3 && i <process.argv.length) {
+            music = music + "+" + process.argv[i];
+    } else {
+            music += process.argv[i];
+        }
+    }
+    spotify
+        .search({ type: 'track', query: music })
+        .then(function(response) {
+            // console.log(response.tracks.items.album.artists[0].name);
+            // console.log(response.tracks.items.album.album_type.name);
+            // console.log(response.tracks.items.album.album_type.external_urls.spotify);  
+    })
+        .catch(function(err) {
+            console.log(err);
+        });
+}
 
 
 
