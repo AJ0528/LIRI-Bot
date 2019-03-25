@@ -1,9 +1,11 @@
 var axios = require("axios");
 require("dotenv").config();
 var keys = require("./keys.js");
-// n
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify);
+
 var action = process.argv[2];
-var value = process.argv;
+var value = process.argv.slice(3).join("+");
 
 // We will then create a switch-case statement (if-else would also work).
 // The switch-case will direct which function gets run.
@@ -13,7 +15,7 @@ case "concert-this":
   break;
 
 case "spotify-this-song":
-  music();
+  song();
   break;
 
 case "movie-this":
@@ -30,15 +32,17 @@ function movie()
 {
     var movieName = "";
 
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-for(i = 3; i < process.argv.length; i++) {
-    movieName += process.argv[i] + '+';
-}
+    if(value == ""){
+   movieName = "Mr.Nobody" 
+    }
+    else{
+      movieName = value;
+    }
+   
 
   
 // Then run a request with axios to the OMDB API with the movie specified
-var movieUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+var movieUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
 
 // This line is just to help us debug against the actual URL.
 console.log(movieUrl);
@@ -55,29 +59,60 @@ axios.get(movieUrl).then(
   }
 );
 }
-function music() {
-    var Spotify = require('node-spotify-api');
-    var spotify = new Spotify(keys.spotify);
-    var music= "";
-    for (let i = 3; i < process.argv.length; i++) {
-        if (i > 3 && i <process.argv.length) {
-            music = music + "+" + process.argv[i];
-    } else {
-            music += process.argv[i];
-        }
-    }
-    spotify
-        .search({ type: 'track', query: music })
-        .then(function(response) {
-            // console.log(response.tracks.items.album.artists[0].name);
-            // console.log(response.tracks.items.album.album_type.name);
-            // console.log(response.tracks.items.album.album_type.external_urls.spotify);  
-    })
-        .catch(function(err) {
-            console.log(err);
-        });
+function song() {
+ 
+  var song = "";
+  if(value == ""){
+    song = "I Want it That Way"
+  }
+  else{
+    song = value;
+  }
+  spotify
+      .search({ type: 'track', query: song })
+      .then(function(data) {
+     console.log(data.tracks.items[0]);
+     console.log(data.Artits);
+     
+
+  })
+      .catch(function(err) {
+          console.log(err);
+      });
 }
 
+function concert(){
 
+  var bands = "";
+  if(value == ""){
+  bands = "blink 182"
+  }
+  else{
+    bands = value
+  }
+  var bandUrl = "https://rest.bandsintown.com/artists/" + bands + "/events?app_id=codingbootcamp"
 
+// This line is just to help us debug against the actual URL.
+console.log(bandUrl);
 
+axios.get(bandUrl).then(
+  function(response) {
+    console.log(response.data);
+    console.log()
+  
+  }
+);
+}
+ 
+function says()
+
+var input = "";
+
+if(value == ""){
+  input="ask me"
+}
+else{
+  input = value
+}
+
+console.log(input);
