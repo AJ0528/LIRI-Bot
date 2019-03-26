@@ -106,13 +106,20 @@ axios.get(bandUrl).then(
  
 function says()
 
+fs.appendFile("random.text", function(err) {
+  if (err) {
+    return console.log(err);
+  }
+});
+
 var input = "";
 
 if(value == ""){
-  input="ask me"
+input = "random.text"
 }
 else{
   input = value
 }
+console.log("random.text");
 
-console.log(input);
+
