@@ -98,7 +98,7 @@ console.log(bandUrl);
 axios.get(bandUrl).then(
   function(response) {
     console.log(response.data);
-    console.log()
+   
   
   }
 );
