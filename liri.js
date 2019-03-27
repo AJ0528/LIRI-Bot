@@ -110,7 +110,7 @@ function says()
 
 var fs = require("fs");
 
-fs.appendFile("random.txt", function(err, data) {
+fs.readFile("random.txt", function(err, data) {
  if (err) {
    return console.log(err);
  }
