@@ -7,7 +7,9 @@ LIRI Bot
 *Call each function for each case.
 
 #Set the Varibals 
-set the varibales to take in a value
+set the varibales to take in a value.
+
+#Use Conditional Statments
 
 
 ![](movie-this.gif);
@@ -17,3 +19,4 @@ set the varibales to take in a value
 ![](concert-this.gif);
 
 ![](do-this.gif);
+

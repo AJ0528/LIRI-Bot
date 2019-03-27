@@ -103,23 +103,21 @@ axios.get(bandUrl).then(
   }
 );
 }
- 
+
+
+
 function says()
 
-fs.appendFile("random.text", function(err) {
-  if (err) {
-    return console.log(err);
-  }
+var fs = require("fs");
+
+fs.appendFile("random.txt", function(err, data) {
+ if (err) {
+   return console.log(err);
+ }
 });
 
-var input = "";
+var output = data.split(",");
 
-if(value == ""){
-input = "random.text"
+for (var i = 0; i < output.length; i++) {
+ console.log(output[i]);
 }
-else{
-  input = value
-}
-console.log("random.text");
-
-
